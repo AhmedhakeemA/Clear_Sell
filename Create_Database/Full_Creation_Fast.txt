@@ -1,0 +1,71 @@
+CREATE DATABASE Sales_System CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+USE Sales_System;
+
+CREATE TABLE `Category_Data` (
+  `Cat_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Cat_Name` varchar(255) DEFAULT NULL,
+  `Cat_Describtion` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`Cat_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 ;
+
+CREATE TABLE `Brand_Data` (
+  `Brand_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Brand_Name` varchar(255) DEFAULT NULL,
+  `Brand_Describtion` varchar(255) DEFAULT NULL,
+  `Brand_Image_Url` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`Brand_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 ;
+
+CREATE TABLE `Customers_Data` (
+  `CS_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `CS_Name` varchar(255) DEFAULT NULL,
+  `CS_Dicsount` varchar(11) NOT NULL ,
+  `CS_Note` varchar(11) NOT NULL ,
+  `Add_Date` DATE DEFAULT NULL,
+  `Add_Time` TIME DEFAULT NULL,
+  PRIMARY KEY (`CS_ID`)
+)ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 ;
+
+ CREATE TABLE `Product_Data` (
+  `Product_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `NameEN` varchar(255) DEFAULT NULL,
+  `NameAR` varchar(255) DEFAULT NULL,
+  `Add_Date` DATE DEFAULT NULL,
+  `Add_Time` TIME DEFAULT NULL,
+  `Unit_Price` FLOAT(11) DEFAULT NULL,
+  `Amount` int(11) DEFAULT NULL,
+  `Avilable` tinyint(1) DEFAULT NULL,
+  `Manifacuring_Date` DATE DEFAULT NULL,
+  `Expiration_Date` DATE DEFAULT NULL,
+  `Image_Url_B` varchar(255) DEFAULT NULL,
+  `Image_Url_S` varchar(255) DEFAULT NULL,
+  `Product_Describtion` varchar(255) DEFAULT NULL,
+  `Product_Note` varchar(255) DEFAULT NULL,
+  `Brand_ID` int(11) NOT NULL ,
+  PRIMARY KEY (`Product_ID`),
+  FOREIGN KEY (Brand_ID) REFERENCES Brand_Data(Brand_ID)
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 ;
+
+
+CREATE TABLE `Exer_Client` (
+  `Cat_ID` int(11) NOT NULL ,
+  `Product_ID` int(11) NOT NULL ,
+  PRIMARY KEY (`Product_ID`,`Cat_ID`),
+  FOREIGN KEY (Cat_ID) REFERENCES Category_Data(Cat_ID),
+  FOREIGN KEY (Product_ID) REFERENCES Product_Data(Product_ID)
+)ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 ;
+
+CREATE TABLE `Purchasing_Trans` (
+  `PT_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Product_ID` int(11) NOT NULL ,
+  `CS_ID` int(11) NOT NULL ,
+  `Product_Amount` int(11) NOT NULL ,
+  `Product_Sum_Value` int(11) NOT NULL ,
+  `Bill_Txrf_Number` varchar(255) NOT NULL ,
+  `Add_Date` DATE DEFAULT NULL,
+  `Add_Time` TIME DEFAULT NULL,
+    PRIMARY KEY (`PT_ID`),
+  FOREIGN KEY (CS_ID) REFERENCES Customers_Data(CS_ID),
+  FOREIGN KEY (Product_ID) REFERENCES Product_Data(Product_ID)
+)ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 ;
